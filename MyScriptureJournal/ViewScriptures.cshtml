@@ -1,6 +1,6 @@
 ﻿@using WebMatrix.Data;
 @{
-    //Layout = "~/_Layout.cshtml";
+    Layout = "~/_Layout.cshtml";
     var db = Database.Open("WebPagesScriptures");
     var selectCommand = "SELECT * FROM Scriptures";
     var searchTerm = "";
@@ -16,6 +16,9 @@
         selectCommand = "SELECT * FROM Scriptures WHERE Text LIKE @0";
         searchTerm = "%" + Request["searchText"] + "%";
     }
+
+    
+
 
     var selectedData = db.Query(selectCommand, searchTerm);
     var grid = new WebGrid(source: selectedData, rowsPerPage: 5);
@@ -53,7 +56,7 @@
                grid.Column("Chapter"),
                grid.Column("Verse"),
                grid.Column("Text"),
-               grid.Column(format: @<a href="~/EditMovie?id=@item.ID">Edit</a>),
+               grid.Column(format: @<a href="~/EditScripture?id=@item.ID">Edit</a>),
                grid.Column(format: @<a href="~/DeleteScripture?id=@item.ID">Delete</a>)
              )
          )
